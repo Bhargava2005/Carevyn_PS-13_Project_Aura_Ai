@@ -39,7 +39,6 @@ Aura AI is a high-performance, aesthetically stunning AI assistant built with Fl
    Create a `.env` file in the root directory and add your API keys:
    ```env
    HUGGINGFACE_API_KEY=your_huggingface_token_here
-   GEMINI_API_KEY=your_gemini_token_here (optional)
    ```
 
 3. **Firebase Configuration**:
@@ -69,5 +68,9 @@ Aura AI is a high-performance, aesthetically stunning AI assistant built with Fl
 This project is open-source. Feel free to use and modify it for your own AI assistant projects!
 
 ---
+
+## 📄 Download the Aura Ai Apllication through below link in mobile
+
+Link: https://github.com/Bhargava2005/Carevyn_PS-13_Project_Aura_Ai/releases/download/v1.0.0/app-release.apk
 
 *Powered by HuggingFace & Firebase*

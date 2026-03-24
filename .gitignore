@@ -32,6 +32,24 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
+.metadata
+analysis_options.yaml
+analysis_results.txt
+analysis_2.txt
+analysis.txt
+error.txt
+final_report.txt
+final_analysis_results.txt
+final_verification.txt
+firebase.json
+intelligent_assistent.iml
+pubspec.lock
+/web/
+/windows/
+/macos/
+/linux/
+/ios/
+
 
 # Symbolication related
 app.*.symbols

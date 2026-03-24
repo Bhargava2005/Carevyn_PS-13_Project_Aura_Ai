@@ -222,7 +222,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     fontSize: 14,
                     height: 1.6,
                   ),
-                  strong: TextStyle(
+                  strong: const TextStyle(
                     color: AppTheme.textPrimary,
                     fontWeight: FontWeight.w700,
                   ),
@@ -246,7 +246,7 @@ class _TaskScreenState extends State<TaskScreen> {
         top: 12,
         bottom: MediaQuery.of(context).padding.bottom + 12,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppTheme.bgDark,
         border: Border(top: BorderSide(color: AppTheme.divider)),
       ),

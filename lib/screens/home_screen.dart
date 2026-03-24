@@ -46,7 +46,6 @@ class HomeScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Phoenix logo — small in header
             const NeuralLogo(size: 38),
             const SizedBox(width: 10),
             Column(
