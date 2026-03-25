@@ -21,6 +21,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _inputCtrl = TextEditingController();
   final ScrollController _scrollCtrl = ScrollController();
+  final FocusNode _inputFocusNode = FocusNode();
   bool _hasText = false;
 
   @override
@@ -35,6 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void dispose() {
     _inputCtrl.dispose();
     _scrollCtrl.dispose();
+    _inputFocusNode.dispose();
     super.dispose();
   }
 
@@ -150,12 +152,13 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             const Spacer(),
             // New chat button
-            IconButton(
-              icon: const Icon(Icons.edit_outlined,
-                  color: AppTheme.textSecondary, size: 20),
-              tooltip: 'New chat',
-              onPressed: () => provider.createNewConversation(),
-            ),
+            if (provider.richMessages.isNotEmpty)
+              IconButton(
+                icon: const Icon(Icons.add,
+                    color: AppTheme.textSecondary, size: 24),
+                tooltip: 'New chat',
+                onPressed: () => provider.createNewConversation(),
+              ),
           ],
         ),
       ),
@@ -215,6 +218,7 @@ class _ChatScreenState extends State<ChatScreen> {
       onTap: () {
         if (title == 'Generate an image') {
           provider.toggleImageMode();
+          _inputFocusNode.requestFocus();
         } else {
           provider.sendMessage('$title $sub', isVoiceInput: false);
         }
@@ -327,13 +331,13 @@ class _ChatScreenState extends State<ChatScreen> {
                         child: Image.memory(msg.resultImage!,
                             width: double.infinity, fit: BoxFit.cover),
                       ),
-                      const SizedBox(height: 8),
+                      if (msg.content.isNotEmpty) const SizedBox(height: 8),
                     ],
                     if (isUser)
                       Text(msg.content,
                           style: GoogleFonts.dmSans(
                               color: Colors.white, fontSize: 14.5, height: 1.5))
-                    else
+                    else if (msg.content.isNotEmpty)
                       MarkdownBody(
                         data: msg.content,
                         styleSheet: MarkdownStyleSheet(
@@ -468,6 +472,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   child: TextField(
                     controller: _inputCtrl,
+                    focusNode: _inputFocusNode,
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     textCapitalization: TextCapitalization.sentences,

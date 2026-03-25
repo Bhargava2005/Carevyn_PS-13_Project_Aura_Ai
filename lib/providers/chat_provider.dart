@@ -74,17 +74,13 @@ class ChatProvider extends ChangeNotifier {
 
   Future<void> initialize() async {
     _conversations = await _storageService.loadConversations();
-    final activeId = await _storageService.loadActiveConversationId();
-    if (activeId != null) {
-      _activeConversation = _conversations
-          .cast<Conversation?>()
-          .firstWhere((c) => c?.id == activeId, orElse: () => null);
-      if (_activeConversation != null) {
-        _syncRichMessages();
-      }
-    }
-    if (_conversations.isEmpty) await createNewConversation();
-    notifyListeners();
+    
+    // Clean up any empty conversations that were somehow saved
+    _conversations.removeWhere((c) => c.messages.isEmpty);
+    await _persist();
+    
+    // Always open to a fresh home screen on launch
+    await createNewConversation();
   }
 
   // ─── Image Mode ───────────────────────────────────────────────────────────
@@ -103,6 +99,16 @@ class ChatProvider extends ChangeNotifier {
   // ─── Conversations ────────────────────────────────────────────────────────
 
   Future<void> createNewConversation() async {
+    // Prevent creating multiple empty chats if we are already on one
+    if (_activeConversation != null && _activeConversation!.messages.isEmpty) {
+      _imageModeEnabled = false;
+      _pendingImage = null;
+      _state = ChatState.idle;
+      _errorMessage = null;
+      notifyListeners();
+      return;
+    }
+
     _richMessages.clear();
     final conv = Conversation(
       id: _uuid.v4(),
@@ -111,13 +117,11 @@ class ChatProvider extends ChangeNotifier {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    _conversations.insert(0, conv);
     _activeConversation = conv;
     _imageModeEnabled = false;
     _pendingImage = null;
     _state = ChatState.idle;
     _errorMessage = null;
-    await _persist();
     notifyListeners();
   }
 
@@ -165,6 +169,10 @@ class ChatProvider extends ChangeNotifier {
       _activeConversation!.title = content.trim().length > 40
           ? '${content.trim().substring(0, 40)}…'
           : content.trim();
+          
+      if (!_conversations.contains(_activeConversation)) {
+        _conversations.insert(0, _activeConversation!);
+      }
     }
 
     _state = ChatState.loading;
@@ -179,11 +187,9 @@ class ChatProvider extends ChangeNotifier {
           prompt: content.trim(),
         );
 
-        final label = '🎨 *Image generated from:* "${content.trim()}"';
-
         final aiMsg = ChatMessage(
           id: _uuid.v4(),
-          content: label,
+          content: '',
           role: MessageRole.assistant,
           timestamp: DateTime.now(),
           status: MessageStatus.sent,
@@ -198,7 +204,7 @@ class ChatProvider extends ChangeNotifier {
         if (isVoiceInput) {
           _isSpeaking = true;
           notifyListeners();
-          await _voiceService.speak(label);
+          await _voiceService.speak('Image generated successfully');
         }
 
       } else {
@@ -248,6 +254,11 @@ class ChatProvider extends ChangeNotifier {
     _activeConversation?.title = 'New Chat';
     _activeConversation?.updatedAt = DateTime.now();
     _richMessages.clear();
+    
+    if (_activeConversation != null) {
+      _conversations.remove(_activeConversation);
+    }
+    
     await _persist();
     notifyListeners();
   }

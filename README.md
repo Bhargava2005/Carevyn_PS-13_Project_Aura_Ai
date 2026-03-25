@@ -69,7 +69,7 @@ This project is open-source. Feel free to use and modify it for your own AI assi
 
 ---
 
-## 📄 Download the Aura Ai Apllication through below link in mobile
+## 📥 Download the Aura Ai Apllication through below link in mobile
 
 Link: https://github.com/Bhargava2005/Carevyn_PS-13_Project_Aura_Ai/releases/download/v1.0.0/app-release.apk
 
