@@ -90,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  // ─── AppBar ───────────────────────────────────────────────────────────────
+  // --- AppBar ---------------------------------------------------------------
 
   Widget _buildAppBar(BuildContext context, ChatProvider provider) {
     return SafeArea(
@@ -174,7 +174,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       );
 
-  // ─── Welcome ──────────────────────────────────────────────────────────────
+  // --- Welcome --------------------------------------------------------------
 
   Widget _buildWelcome(ChatProvider provider) {
     return SingleChildScrollView(
@@ -256,7 +256,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  // ─── Message List ─────────────────────────────────────────────────────────
+  // --- Message List ---------------------------------------------------------
 
   Widget _buildMessageList(ChatProvider provider) {
     return ListView.builder(
@@ -435,7 +435,7 @@ class _ChatScreenState extends State<ChatScreen> {
             size: 16, color: AppTheme.textSecondary),
       );
 
-  // ─── Input Area ───────────────────────────────────────────────────────────
+  // --- Input Area -----------------------------------------------------------
 
   Widget _buildInputArea(ChatProvider provider) {
     return Container(
@@ -640,7 +640,7 @@ class _ChatScreenState extends State<ChatScreen> {
       '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
 }
 
-// ─── Sub-widgets ──────────────────────────────────────────────────────────────
+// --- Sub-widgets --------------------------------------------------------------
 
 class _MicButton extends StatelessWidget {
   final bool active;

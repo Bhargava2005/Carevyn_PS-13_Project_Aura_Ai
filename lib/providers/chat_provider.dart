@@ -83,7 +83,7 @@ class ChatProvider extends ChangeNotifier {
     await createNewConversation();
   }
 
-  // ─── Image Mode ───────────────────────────────────────────────────────────
+  // --- Image Mode -----------------------------------------------------------
 
   void toggleImageMode() {
     _imageModeEnabled = !_imageModeEnabled;
@@ -96,7 +96,7 @@ class ChatProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ─── Conversations ────────────────────────────────────────────────────────
+  // --- Conversations --------------------------------------------------------
 
   Future<void> createNewConversation() async {
     // Prevent creating multiple empty chats if we are already on one
@@ -148,7 +148,7 @@ class ChatProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ─── Send Message ─────────────────────────────────────────────────────────
+  // --- Send Message ---------------------------------------------------------
 
   Future<void> sendMessage(String content, {bool isVoiceInput = false}) async {
     if (content.trim().isEmpty || _activeConversation == null) return;
@@ -284,7 +284,7 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  // ─── Voice ────────────────────────────────────────────────────────────────
+  // --- Voice ----------------------------------------------------------------
 
   bool get isListening => _voiceService.isListening;
 

@@ -24,6 +24,7 @@ Aura AI is a high-performance, aesthetically stunning AI assistant built with Fl
 ### Prerequisites
 
 - Flutter SDK (latest version)
+- **Java 17 or 21**: Android builds currently fail on newer versions like Java 25 (e.g., throwing an `Unsupported class file major version 69` problem remember it's not an error). Ensure you have a compatible, LTS version of Java installed.
 - A Firebase Project (with Anonymous Auth and Firestore enabled)
 - A HuggingFace API Token ([Get one here](https://huggingface.co/settings/tokens))
 
@@ -51,6 +52,8 @@ Aura AI is a high-performance, aesthetically stunning AI assistant built with Fl
    ```
 
 5. **Run the app**:
+   > **⚠️ Important:** Please run this project **only on an Android emulator or physical Android device**. Running it on Web or Windows Desktop currently throws errors due to platform-specific dependencies.
+
    ```bash
    flutter run
    ```

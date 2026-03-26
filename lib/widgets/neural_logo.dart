@@ -57,7 +57,6 @@ class _NeuralPainter extends CustomPainter {
 
     // Draw spokes center → outer
     for (int i = 1; i <= 8; i++) {
-      final t = (i - 1) / 8.0;
       linePaint.shader = LinearGradient(
         colors: [
           const Color(0xFF00C9FF).withOpacity(0.7),

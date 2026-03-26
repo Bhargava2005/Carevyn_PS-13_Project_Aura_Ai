@@ -18,7 +18,7 @@ class StorageService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // ─── Auth ─────────────────────────────────────────────────────────────────
+  // --- Auth -----------------------------------------------------------------
 
   /// Signs in anonymously so every device gets a unique userId
   /// without requiring email/password from the user.
@@ -34,7 +34,7 @@ class StorageService {
     return uid;
   }
 
-  // ─── Firestore collection refs ────────────────────────────────────────────
+  // --- Firestore collection refs --------------------------------------------
 
   CollectionReference<Map<String, dynamic>> get _convCol =>
       _db.collection('users').doc(_userId).collection('conversations');
@@ -42,7 +42,7 @@ class StorageService {
   CollectionReference<Map<String, dynamic>> _msgCol(String convId) =>
       _convCol.doc(convId).collection('messages');
 
-  // ─── Load conversations ───────────────────────────────────────────────────
+  // --- Load conversations ---------------------------------------------------
 
   Future<List<Conversation>> loadConversations() async {
     try {
@@ -77,7 +77,7 @@ class StorageService {
     }
   }
 
-  // ─── Save conversations ───────────────────────────────────────────────────
+  // --- Save conversations ---------------------------------------------------
 
   Future<void> saveConversations(List<Conversation> conversations) async {
     for (final conv in conversations) {
@@ -105,7 +105,7 @@ class StorageService {
     await batch.commit();
   }
 
-  // ─── Active conversation ID ───────────────────────────────────────────────
+  // --- Active conversation ID -----------------------------------------------
 
   Future<String?> loadActiveConversationId() async {
     try {
@@ -123,7 +123,7 @@ class StorageService {
     );
   }
 
-  // ─── Delete conversation ──────────────────────────────────────────────────
+  // --- Delete conversation --------------------------------------------------
 
   Future<void> deleteConversation(String convId) async {
     final msgs = await _msgCol(convId).get();
@@ -135,7 +135,7 @@ class StorageService {
     await batch.commit();
   }
 
-  // ─── Real-time stream ─────────────────────────────────────────────────────
+  // --- Real-time stream -----------------------------------------------------
 
   /// Stream of conversations — auto-updates UI when Firestore changes.
   Stream<List<Conversation>> conversationsStream() {
@@ -159,7 +159,7 @@ class StorageService {
     });
   }
 
-  // ─── Clear all ────────────────────────────────────────────────────────────
+  // --- Clear all ------------------------------------------------------------
 
   Future<void> clearAll() async {
     final convs = await _convCol.get();
@@ -169,7 +169,7 @@ class StorageService {
     await _db.collection('users').doc(_userId).delete();
   }
 
-  // ─── Helpers ──────────────────────────────────────────────────────────────
+  // --- Helpers --------------------------------------------------------------
 
   DateTime _toDateTime(dynamic value) {
     if (value is Timestamp) return value.toDate();
