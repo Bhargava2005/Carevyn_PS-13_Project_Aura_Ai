@@ -31,7 +31,7 @@ Aura AI is a high-performance, aesthetically stunning AI assistant built with Fl
 
 1. **Clone the repository**:
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/Bhargava2005/Carevyn_PS-13_Project_Aura_Ai.git
    cd intelligent_assistent
    ```
 
@@ -69,7 +69,7 @@ This project is open-source. Feel free to use and modify it for your own AI assi
 
 ---
 
-## 📥 Download the Aura Ai Apllication through below link in mobile
+## 📥 Download the Aura AI Application through the link below for mobile
 
 Link: https://github.com/Bhargava2005/Carevyn_PS-13_Project_Aura_Ai/releases/download/v1.0.0/app-release.apk
 
